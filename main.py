@@ -11,10 +11,7 @@ from selenium.webdriver.common.by import By
 
 
 def random_month():
-    return random.choice(["J", "F", "M",
-                          "A", "MM", "JJ",
-                          "JJJ", "AA", "S",
-                          "O", "N", "D"])
+    return random.choice(["J", "F", "M", "A", "MM", "JJ", "JJJ", "AA", "S", "O", "N", "D"])
 
 
 def random_day():
