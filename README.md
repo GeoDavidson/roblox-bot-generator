@@ -1,6 +1,6 @@
 # Roblox Bot Generator
 
-Easily generate and log in to Roblox accounts.
+ Easily generate and log in to multiple Roblox accounts.
 
 ![roblox_accounts.png](README.assets/roblox_accounts.png)
 
