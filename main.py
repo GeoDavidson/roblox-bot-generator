@@ -5,8 +5,6 @@ import string
 import time
 
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
 
@@ -86,7 +84,7 @@ def invalid_number(number):
 
 def invalid_file(file_name):
     if not file_name.endswith(".txt"):
-        print("error: file name dosent end in '.txt'")
+        print("error: file name doesn't end in '.txt'")
         return True
     elif any(char in file_name for char in ["/", "\\", "?", "%", "*", ":", "|", "\"", "<", ">"]):
         print("error: file name contains forbidden characters")
@@ -182,27 +180,20 @@ def gen(command):
         return
 
     for _ in range(int(number_of_accounts)):
-        PATH = os.path.join("driver", "chromedriver.exe")
-        options = Options()
-        options.add_argument("log-level=3")
-        options.add_argument("--disable-blink-features=AutomationControlled")
-        options.add_experimental_option("detach", True)
-        options.add_experimental_option('excludeSwitches', ['enable-logging'])
-        service = Service(executable_path=PATH)
-        driver = webdriver.Chrome(service=service, options=options)
+        options = webdriver.ChromeOptions()
+        options.add_argument('log-level=3')
+
+        driver = webdriver.Chrome(options=options)
         driver.get("https://roblox.com")
         driver.implicitly_wait(5)
 
-        print("signing up...")
         while True:
             account_info = sign_up(driver)
             time.sleep(1.25)
             if not invalid_credentials(driver):
-                print("good credentials")
                 break
             print("retrying...")
 
-        print("verifying...")
         while driver.current_url != "https://www.roblox.com/home?nu=true":
             try:
                 sign_up_element = driver.find_element(By.XPATH, '//*[@id="signup-button"]')
@@ -236,16 +227,14 @@ def log(command):
         lines = file.readlines()
 
     for line in lines:
-        PATH = os.path.join("driver", "chromedriver.exe")
-        options = Options()
-        options.add_argument("log-level=3")
-        options.add_argument("--disable-blink-features=AutomationControlled")
+        options = webdriver.ChromeOptions()
+        options.add_argument('log-level=3')
         options.add_experimental_option("detach", True)
-        options.add_experimental_option('excludeSwitches', ['enable-logging'])
-        service = Service(executable_path=PATH)
-        driver = webdriver.Chrome(service=service, options=options)
+
+        driver = webdriver.Chrome(options=options)
         driver.get("https://www.roblox.com/login")
         driver.implicitly_wait(5)
+
         log_in(driver, line[6:26], line[39:])
 
 
@@ -260,10 +249,10 @@ def main():
         elif command[0:3] == "log":
             log(command)
         elif command == "help":
-            print("'new file.txt'   - create a new file to store accounts")
-            print("'gen 1 file.txt' - generate accounts and store them in a file")
-            print("'log file.txt'   - log all accounts in a file")
-            print("'quit'           - quit the program")
+            print("'new file.txt'       - create a new file to store accounts")
+            print("'gen <int> file.txt' - generate accounts and store them in a file")
+            print("'log file.txt'       - automatically log in to all accounts in a file")
+            print("'quit'               - quit the program")
         elif command == "quit":
             print("quitting program...")
             break
