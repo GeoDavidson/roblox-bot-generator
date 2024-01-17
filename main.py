@@ -89,7 +89,7 @@ def invalid_file(file_name):
     elif any(char in file_name for char in ["/", "\\", "?", "%", "*", ":", "|", "\"", "<", ">"]):
         print("error: file name contains forbidden characters")
         return True
-    elif os.path.exists(os.path.join("account_pools", file_name)):
+    elif os.path.exists(os.path.join("account-pools", file_name)):
         print("error: file already exists")
         return True
     else:
@@ -97,7 +97,7 @@ def invalid_file(file_name):
 
 
 def unknown_file(file_name):
-    for file in os.listdir(os.path.join("account_pools")):
+    for file in os.listdir(os.path.join("account-pools")):
         if file == file_name:
             return False
     print("error: file not found")
@@ -162,7 +162,7 @@ def new(command):
     if invalid_file(file_name):
         return
 
-    open(os.path.join("account_pools", file_name), "w").close()
+    open(os.path.join("account-pools", file_name), "w").close()
     print(f"created '{file_name}'")
 
 
@@ -204,7 +204,7 @@ def gen(command):
                 return
             time.sleep(1)
 
-        with open(os.path.join("account_pools", file_name), "a") as accounts:
+        with open(os.path.join("account-pools", file_name), "a") as accounts:
             accounts.write(f"{account_info}\n")
 
         print(f"account created: {account_info}")
@@ -223,7 +223,7 @@ def log(command):
     if unknown_file(file_name):
         return
 
-    with open(os.path.join("account_pools", file_name), "r") as file:
+    with open(os.path.join("account-pools", file_name), "r") as file:
         lines = file.readlines()
 
     for line in lines:
