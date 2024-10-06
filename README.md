@@ -23,3 +23,5 @@ pip install -r requirements.txt
 'quit' - Quit the program.
 
 All funcaptas must be completed manually.
+
+Place [`chromedriver.exe`](https://googlechromelabs.github.io/chrome-for-testing/#stable) in root directory.
