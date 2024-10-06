@@ -183,7 +183,9 @@ def gen(command):
         options = webdriver.ChromeOptions()
         options.add_argument('log-level=3')
 
-        driver = webdriver.Chrome(options=options)
+        service = webdriver.ChromeService(executable_path='./chromedriver.exe')
+
+        driver = webdriver.Chrome(service=service, options=options)
         driver.get("https://roblox.com")
         driver.implicitly_wait(5)
 
@@ -231,7 +233,9 @@ def log(command):
         options.add_argument('log-level=3')
         options.add_experimental_option("detach", True)
 
-        driver = webdriver.Chrome(options=options)
+        service = webdriver.ChromeService(executable_path='./chromedriver.exe')
+
+        driver = webdriver.Chrome(service=service, options=options)
         driver.get("https://www.roblox.com/login")
         driver.implicitly_wait(5)
 
